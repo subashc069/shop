@@ -12,15 +12,15 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid')->unique();
-            $table->string('first_name');
-            $table->string('last_name')->nullable();
-            $table->string('email')->unique();
-            $table->string('password');
+            $table->uuid(column: 'uuid')->unique();
+            $table->string(column: 'first_name');
+            $table->string(column: 'last_name')->nullable();
+            $table->string(column: 'email')->unique();
+            $table->string(column: 'password');
             $table->rememberToken();
 
-            $table->foreignIdFor(Location::class, 'billing_id')->nullable()->index();
-            $table->foreignIdFor(Location::class, 'shipping_id')->nullable()->index();
+            $table->foreignIdFor(model: Location::class, column: 'billing_id')->nullable()->index();
+            $table->foreignIdFor(model: Location::class, column: 'shipping_id')->nullable()->index();
 
             $table->timestamps();
         });

@@ -11,21 +11,21 @@ return new class extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid')->unique();
-            $table->string('house'); // 1234
-            $table->string('street'); //street name
-            $table->string('parish')->nullable(); //village ot town
-            $table->string('ward')->nullable(); // town
-            $table->string('district')->nullable(); //Greater Area
-            $table->string('county')->nullable(); //Darbyshire County
-            $table->string('postcode'); // DE56 0QF
-            $table->string('country');
+            $table->uuid(column: 'uuid')->unique();
+            $table->string(column: 'house'); // 1234
+            $table->string(column: 'street'); //street name
+            $table->string(column: 'parish')->nullable(); //village ot town
+            $table->string(column: 'ward')->nullable(); // town
+            $table->string(column: 'district')->nullable(); //Greater Area
+            $table->string(column: 'county')->nullable(); //Darbyshire County
+            $table->string(column: 'postcode'); // DE56 0QF
+            $table->string(column: 'country');
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('locations');
+        Schema::dropIfExists(table: 'locations');
     }
 };
