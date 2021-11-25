@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Domains\Customer\Models;
 
+use Database\Factories\AddressFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -32,5 +33,10 @@ class Address extends Model
             related: Location::class,
             foreignKey: 'location_id'
         );
+    }
+
+    protected  static function newFactory(): AddressFactory
+    {
+        return AddressFactory::new();
     }
 }

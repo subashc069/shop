@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Domains\Customer\Models;
 
+use Database\Factories\UserFactory;
 use Domains\Customer\Models\Concerns\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -37,6 +38,11 @@ class User extends Authenticatable
             related: Address::class,
             foreignKey: 'user_id'
         );
+    }
+
+    protected  static function newFactory(): UserFactory
+    {
+        return UserFactory::new();
     }
 
 }
