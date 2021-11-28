@@ -4,6 +4,7 @@ namespace Domains\Customer\Models;
 
 use Database\Factories\LocationFactory;
 use Domains\Shared\Models\Concerns\HasUuid;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -33,7 +34,7 @@ class Location extends Model
         );
     }
 
-    protected  static function newFactory(): LocationFactory
+    protected  static function newFactory(): Factory
     {
         return new LocationFactory();
     }
