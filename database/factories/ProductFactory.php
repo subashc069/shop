@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use Domains\Catalog\Models\Category;
-use Domains\Catalog\Models\Product\Product;
+use Domains\Catalog\Models\Product;
 use Domains\Catalog\Models\Range;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
