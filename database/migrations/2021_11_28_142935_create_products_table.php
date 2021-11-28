@@ -22,8 +22,8 @@ return new class extends Migration
              * @tofo Move default to config/env variable
              */
             $table->boolean('vat')->default(false);
-            $table->foreignId('category_id')->index()->constrained();
-            $table->foreignId('range_id')->nullable()->index()->constrained();
+            $table->foreignId('category_id')->nullable()->index()->constrained()->nullOnDelete();
+            $table->foreignId('range_id')->nullable()->index()->constrained()->nullOnDelete();
 
             $table->timestamps();
         });
