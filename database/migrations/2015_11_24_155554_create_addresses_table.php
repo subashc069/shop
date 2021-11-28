@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->string(column: 'label'); //Home/Office/ Head Office/ Village  House
-            $table->boolean(column: 'billing')->default( false); //Billing/Shipping
+            $table->string('label'); //Home/Office/ Head Office/ Village  House
+            $table->boolean('billing')->default( false); //Billing/Shipping
 
-            $table->foreignIdFor(model: User::class, column: 'user_id')->index();
-            $table->foreignIdFor(model: Location::class, column: 'location_id')->index();
+            $table->foreignId('user_id')->index()->constrained();
+            $table->foreignId('location_id')->index()->constrained();
 
             $table->timestamps();
         });

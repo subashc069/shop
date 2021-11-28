@@ -18,8 +18,7 @@ return new class extends Migration
             $table->string(column: 'password');
             $table->rememberToken();
 
-            $table->foreignId(column: 'billing_id')->nullable()->constrained('addresses');
-            $table->foreignId(column: 'shipping_id')->nullable()->constrained('addresses');
+
 
             $table->timestamps();
         });
