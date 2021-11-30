@@ -33,6 +33,7 @@ class Product extends Model
 
     protected $casts = [
         'active' => 'boolean',
+        'vat' => 'boolean',
     ];
 
     public function category(): BelongsTo
@@ -51,7 +52,7 @@ class Product extends Model
         );
     }
 
-    public function variant(): HasMany
+    public function variants(): HasMany
     {
         return $this->hasMany(
             Variant::class,
