@@ -1,21 +1,17 @@
 <?php
+declare(strict_types=1);
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
+use JustSteveKing\StatusCode\Http;
+use function Pest\Laravel\get;
 
-class ExampleTest extends TestCase
-{
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function test_example()
-    {
-        $response = $this->get('/');
+it(description: 'it receives Http OK on home page', closure:  function() {
+   get(
+       uri: route('home'),
+   )->assertStatus(
+       status: Http::OK
+   );
+});
 
-        $response->assertStatus(200);
-    }
-}
+
