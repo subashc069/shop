@@ -15,8 +15,8 @@ return new class extends Migration
             $table->string('status'); //pending/completed/abandoned
             $table->string('coupon')->nullable();
 
-            $table->unsignedBigInteger('total')->nullable();
-            $table->unsignedBigInteger('reduction')->nullable();
+            $table->unsignedBigInteger('total')->default(0);
+            $table->unsignedBigInteger('reduction')->default(0);
 
             $table->foreignId('user_id')->index()->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
