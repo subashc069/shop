@@ -48,17 +48,17 @@ Route::prefix('carts')->as('carts:')->group(function () {
     Route::post('{cart:uuid}/products', App\Http\Controllers\Api\V1\Carts\Products\StoreController::class)
         ->name('products:store');
 
-//    /**
-//     * Update Quantity
-//     */
-//    Route::patch('{cart}/products/{cartItem}', App\Http\Resources\Api\V1\Carts\Prodcuts\UpdateController::class)
-//        ->name('products:update');
-//
-//    /**
-//     * Delete Product
-//     */
-//    Route::delete('{cart}/products/{cartItem}', App\Http\Resources\Api\V1\Carts\Prodcuts\DeleteController::class)
-//        ->name('products:delete');
-//
+    /**
+     * Update Quantity
+     */
+    Route::patch('{cart:uuid}/products/{item:uuid}', App\Http\Controllers\Api\V1\Carts\Products\UpdateController::class)
+        ->name('products:update');
+
+    /**
+     * Delete Product
+     */
+    Route::delete('{cart:uuid}/products/{item:uuid}', App\Http\Controllers\Api\V1\Carts\Products\DeleteController::class)
+        ->name('products:delete');
+
 
 });
