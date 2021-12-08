@@ -14,3 +14,7 @@ dataset('3CartItems', [
 dataset('cartItem', [
     fn() => CartItem::factory()->create(['quantity' => 1])
 ]);
+
+dataset('cartWithCoupon', [
+    fn() => Cart::factory()->withCoupon()->create()
+]);

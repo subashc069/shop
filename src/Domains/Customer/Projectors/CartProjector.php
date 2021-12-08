@@ -4,6 +4,7 @@ namespace Domains\Customer\Projectors;
 
 use Domains\Customer\Aggregates\CartAggregate;
 use Domains\Customer\Events\CouponWasApplied;
+use Domains\Customer\Events\CouponWasRemovedFromCart;
 use Domains\Customer\Events\DecreaseCartQuantity;
 use Domains\Customer\Events\IncreaseCartQuantity;
 use Domains\Customer\Events\ProductWasAddedToCart;

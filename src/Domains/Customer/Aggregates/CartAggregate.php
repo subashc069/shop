@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Domains\Customer\Aggregates;
 
 use Domains\Customer\Events\CouponWasApplied;
+use Domains\Customer\Events\CouponWasRemovedFromCart;
 use Domains\Customer\Events\DecreaseCartQuantity;
 use Domains\Customer\Events\IncreaseCartQuantity;
 use Domains\Customer\Events\ProductWasAddedToCart;
@@ -72,6 +73,17 @@ class CartAggregate extends AggregateRoot
                 code: $code,
             )
         );
+        return $this;
+    }
+
+    public function removeCoupon(int $cartID): self
+    {
+        $this->recordThat(
+            domainEvent: new CouponWasRemovedFromCart(
+                cartID: $cartID
+            )
+        );
+
         return $this;
     }
 }

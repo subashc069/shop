@@ -2,15 +2,12 @@
 // create a cart
 
 use Domains\Catalog\Models\Variant;
-use Domains\Customer\Events\CouponWasApplied;
-use Domains\Customer\Events\CouponWasRemoved;
 use Domains\Customer\Events\DecreaseCartQuantity;
 use Domains\Customer\Events\IncreaseCartQuantity;
 use Domains\Customer\Events\ProductWasAddedToCart;
 use Domains\Customer\Events\ProductWasRemovedFromCart;
 use Domains\Customer\Models\Cart;
 use Domains\Customer\Models\CartItem;
-use Domains\Customer\Models\Coupon;
 use Domains\Customer\Status\Statuses\CartStatus;
 use JustSteveKing\StatusCode\Http;
 use Spatie\EventSourcing\StoredEvents\Models\EloquentStoredEvent;
@@ -128,45 +125,4 @@ it('can remove an item from cart', function (CartItem $item) {
     expect(EloquentStoredEvent::query()->first()->event_class)->toEqual(ProductWasRemovedFromCart::class);
 })->with('3CartItems');
 
-it('can apply coupons to the cart', function (Cart $cart, Coupon $coupon) {
-    expect(EloquentStoredEvent::query()->get())->toHaveCount(0);
 
-    expect($cart)
-        ->reduction
-        ->toEqual(0);
-
-    post(
-        uri: route('api:v1:carts:coupons:store', [
-            'cart' => $cart->uuid,
-        ]),
-        data: [
-            'code' => $coupon->code
-        ],
-    )->assertStatus(Http::ACCEPTED);
-
-    expect(EloquentStoredEvent::query()->get())->toHaveCount(1);
-    expect(EloquentStoredEvent::query()->first()->event_class)->toEqual(CouponWasApplied::class);
-})->with('cart', 'coupon');
-
-it('can remove coupon from cart', function () {
-    expect(EloquentStoredEvent::query()->get())->toHaveCount(0);
-
-
-    $coupon = Coupon::factory()->create();
-    $cart = Cart::factory()->create([
-        'coupon' => $coupon->code,
-        'reduction' => $coupon->reduction
-    ]);
-    expect($cart)
-        ->reduction
-        ->toEqual($coupon->reduction);
-
-    post(
-        uri: route('api:v1:carts:coupons:remove', [
-            'cart' => $cart->uuid,
-        ]),
-    )->assertStatus(Http::ACCEPTED);
-
-    expect(EloquentStoredEvent::query()->get())->toHaveCount(1);
-    expect(EloquentStoredEvent::query()->first()->event_class)->toEqual(CouponWasRemoved::class);
-});

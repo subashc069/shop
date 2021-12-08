@@ -25,7 +25,6 @@ class Cart extends Model
         'status',
         'total',
         'coupon',
-        'total',
         'reduction',
         'user_id'
     ];

@@ -67,4 +67,11 @@ Route::prefix('carts')->as('carts:')->group(function () {
     Route::post('{cart:uuid}/coupons', \App\Http\Controllers\Api\V1\Carts\Coupons\StoreController::class)
         ->name('coupons:store');
 
+    /**
+     * Remove Coupons
+     */
+
+    Route::delete('{cart:uuid}/coupons/{uuid}', \App\Http\Controllers\Api\V1\Carts\Coupons\DeleteController::class)
+        ->name('coupons:delete');
+
 });
