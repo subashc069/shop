@@ -75,3 +75,14 @@ Route::prefix('carts')->as('carts:')->group(function () {
         ->name('coupons:delete');
 
 });
+
+/**
+ * Order Routes
+ */
+
+Route::prefix('orders')->as('orders:')->group(function () {
+    /**
+     * Convert a cart to an order
+     */
+    Route::post('/',App\Http\Controllers\Api\V1\Orders\StoreController::class)->name('store');
+});
