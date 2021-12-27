@@ -31,6 +31,7 @@ class Cart extends Model
 
     protected $casts = [
         'status' => CartStatus::class . ': nullable',
+        'total' => 'integer',
     ];
 
     public  function user(): BelongsTo

@@ -35,7 +35,8 @@ class Variant extends Model
 
     protected $casts = [
         'active' => 'boolean',
-        'shippable' => 'boolean'
+        'shippable' => 'boolean',
+        'retail' => 'integer',
     ];
 
     public function product(): BelongsTo
