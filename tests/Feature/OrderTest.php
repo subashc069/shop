@@ -3,7 +3,6 @@
 use Domains\Customer\Events\OrderWasCreated;
 use Domains\Customer\Models\CartItem;
 use Domains\Customer\Models\Location;
-use Domains\Customer\Models\Order;
 use Domains\Customer\Models\User;
 use JustSteveKing\StatusCode\Http;
 use Spatie\EventSourcing\StoredEvents\Models\EloquentStoredEvent;
@@ -21,7 +20,7 @@ it('can convert a cart to an order for an unauthenticated user', function (CartI
             'shipping' => $location->id,
             'billing' => $location->id,
         ]
-    )->assertStatus(Http::CREATED);
+    )->assertStatus(Http::ACCEPTED);
 
     expect(EloquentStoredEvent::query()->get())->toHaveCount(1);
     expect(EloquentStoredEvent::query()->first()->event_class)->toEqual(OrderWasCreated::class);
@@ -40,7 +39,7 @@ it('can convert a cart to an order for an authenticated user', function (CartIte
             'shipping' => $location->id,
             'billing' => $location->id,
         ]
-    )->assertStatus(Http::CREATED);
+    )->assertStatus(Http::ACCEPTED);
 
     expect(EloquentStoredEvent::query()->get())->toHaveCount(1);
     expect(EloquentStoredEvent::query()->first()->event_class)->toEqual(OrderWasCreated::class);
