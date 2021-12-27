@@ -1,10 +1,13 @@
 <?php
 
+use Domains\Customer\Events\CouponWasApplied;
+use Domains\Customer\Events\DecreaseCartQuantity;
 use Domains\Customer\Events\IncreaseCartQuantity;
 use Domains\Customer\Events\ProductWasAddedToCart;
 use Domains\Customer\Events\ProductWasRemovedFromCart;
 use Domains\Customer\Models\Cart;
 use Domains\Customer\Projectors\CartProjector;
+use Spatie\EventSourcing\StoredEvents\Models\EloquentStoredEvent;
 
 beforeEach(fn() => $this->projector = new CartProjector());
 
@@ -95,7 +98,7 @@ it('can remove a product with quantity > 1 from the cart', function (Cart $cart)
 
 })->with('CartWith3Items');
 
-it('can increase quanity of an item in the cart', function(IncreaseCartQuantity $event) {
+it('can increase quantity of an item in the cart', function(IncreaseCartQuantity $event) {
     expect($this->projector)->toBeInstanceOf(CartProjector::class);
     $cart = Cart::query()->find($event->cartID);
 
@@ -108,3 +111,48 @@ it('can increase quanity of an item in the cart', function(IncreaseCartQuantity 
     expect($cart->items->first()->quantity)->toEqual(2);
 
 })->with('IncreaseCartQuantity');
+
+it('can decrease quantity of an item in the cart', function (DecreaseCartQuantity $event) {
+    expect($this->projector)->toBeInstanceOf(CartProjector::class);
+    $cart = Cart::query()->find($event->cartID);
+    expect($cart->items->first()->quantity)->toEqual(3);
+
+    $this->projector->onDecreaseCartQuantity(
+        event: $event,
+    );
+
+    $cart->refresh();
+    expect($cart->items->first()->quantity)->toEqual(2);
+
+})->with('DecreaseCartQuantity');
+
+it('removes the item from the cart when you are trying to remove more than or equal to the quantity in the cart', function (DecreaseCartQuantity $event) {
+    expect($this->projector)->toBeInstanceOf(CartProjector::class);
+    $cart = Cart::query()->find($event->cartID);
+    expect($cart->items->first()->quantity)->toEqual(1);
+
+    $this->projector->onDecreaseCartQuantity(
+        event: $event,
+    );
+
+    $cart->refresh();
+
+    expect(EloquentStoredEvent::query()->get())->toHaveCount(1);
+    expect(EloquentStoredEvent::query()->first()->event_class)->toEqual(ProductWasRemovedFromCart::class);
+
+})->with('RemoveCartQuantity');
+
+it('can apply coupon to a cart', function (CouponWasApplied $event) {
+    expect($this->projector)->toBeInstanceOf(CartProjector::class);
+    expect(
+        Cart::query()->find($event->cartID)->code
+    )->toBeNull();
+
+    $this->projector->onCouponWasApplied(
+        event: $event
+    );
+
+    expect(
+        Cart::query()->find($event->cartID)->coupon
+    )->toBeString();
+})->with('ApplyCouponToCart');

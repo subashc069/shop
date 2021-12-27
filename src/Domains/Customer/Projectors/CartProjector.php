@@ -88,20 +88,22 @@ class CartProjector extends Projector
     {
         $item = CartItem::query()->where(
             column: 'cart_id',
+            operator: '=',
             value: $event->cartID,
         )->where(
             column: 'id',
+            operator: '=',
             value: $event->cartItemID,
         )->first();
 
         if($event->quantity >= $item->quantity) {
             CartAggregate::retrieve(
-                uuid: Str::uuid()->toString(),
+                uuid: $item->cart->uuid,
             )->removeProduct(
                 purchasableID: $item->purchasable->id,
                 cartID: $item->cart_id,
                 type: get_class($item->purchasable),
-            );
+            )->persist();
             return;
         }
         $item->update([
@@ -115,8 +117,9 @@ class CartProjector extends Projector
         $coupon = Coupon::query()->where('code', $event->code)->first();
 
         Cart::query()->where(
-            'id',
-            $event->cartID
+            column: 'id',
+            operator: '=',
+            value:  $event->cartID
         )->update([
             'coupon' => $coupon->code,
             'reduction' => $coupon->reduction,
