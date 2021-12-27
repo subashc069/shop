@@ -3,12 +3,14 @@
 namespace Domains\Customer\Actions;
 
 use Domains\Customer\Models\Cart;
+use Domains\Customer\Models\CartItem;
 use Domains\Customer\Models\Order;
+use Domains\Customer\Status\Statuses\OrderStatus;
 use Domains\Customer\ValueObjects\OrderValueObject;
 
 class CreateOrder
 {
-    public function handle(OrderValueObject $object): void
+    public static function handle(OrderValueObject $object): void
     {
         $cart = Cart::query()
             ->with(['items'])
@@ -27,6 +29,17 @@ class CreateOrder
         ]);
 
         //order items
+        $cart->items->each(function (CartItem $item) use ($order) {
+            $order->lineItems()->create([
+               'name' => $item->purchasable->name,
+               'description' => $item->purchasable->product->description,
+               'retail' => $item->purchasable->retail,
+               'cost' => $item->purchasable->cost,
+               'quantity' => $item->quantity,
+               'purchasable_id' => $item->purchasable->id,
+               'purchasable_type' => get_class($item->purchasable),
+            ]);
+        });
         //payment
     }
 }
