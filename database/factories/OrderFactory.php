@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use Domains\Customer\Models\Location;
+use Domains\Fulfilment\Models\Order;
 use Domains\Fulfilment\Status\Statuses\OrderStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Domains\Customer\Models\Order;
 use Domains\Customer\Models\User;
 use Illuminate\Support\Arr;
 

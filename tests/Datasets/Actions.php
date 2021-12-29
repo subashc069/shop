@@ -13,5 +13,6 @@ dataset('OrderValueObject', [
         billing: $location,
         user: User::factory()->create()->id,
         email: null,
+        intent: null,
     )
 ]);

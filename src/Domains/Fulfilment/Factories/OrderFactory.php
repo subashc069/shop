@@ -14,6 +14,7 @@ class OrderFactory
             billing: $attributes['billing'],
             user: $attributes['user'],
             email: $attributes['email'],
+            intent: $attributes['intent'],
         );
     }
 }

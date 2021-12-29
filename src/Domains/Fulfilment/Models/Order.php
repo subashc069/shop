@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace Domains\Fulfilment\Models;
 
 use Database\Factories\OrderFactory;
+use Domains\Customer\Models\Location;
+use Domains\Customer\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -21,6 +23,7 @@ class Order extends Model
         'number',
         'state',
         'coupon',
+        'intent_id',
         'total',
         'reduction',
         'user_id',
