@@ -19,14 +19,4 @@ class OrderValueObject
         public null|string $email,
     ) {}
 
-    /**
-     * @return array<Tkey,Tvalue>
-     */
-//    public function toArray(): array
-//    {
-//        return [
-//            'status' => $this->status,
-//            'user_id' => $this->userId,
-//        ];
-//    }
 }
