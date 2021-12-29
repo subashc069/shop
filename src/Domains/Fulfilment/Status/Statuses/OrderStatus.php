@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Domains\Customer\Status\Statuses;
+namespace Domains\Fulfilment\Status\Statuses;
 use Spatie\Enum\Laravel\Enum;
 
 /**

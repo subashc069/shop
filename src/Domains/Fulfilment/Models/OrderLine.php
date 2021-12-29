@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Domains\Customer\Models;
+namespace Domains\Fulfilment\Models;
 
 use Database\Factories\OrderLineFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;

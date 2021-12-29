@@ -1,6 +1,6 @@
 <?php
 
-use Domains\Customer\Events\OrderWasCreated;
+use Domains\Fulfilment\Events\OrderWasCreated;
 use Domains\Customer\Models\CartItem;
 use Domains\Customer\Models\Location;
 use Domains\Customer\Models\User;

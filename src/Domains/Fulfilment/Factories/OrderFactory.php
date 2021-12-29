@@ -1,8 +1,8 @@
 <?php
 
-namespace Domains\Customer\Factories;
+namespace Domains\Fulfilment\Factories;
 
-use Domains\Customer\ValueObjects\OrderValueObject;
+use Domains\Fulfilment\ValueObjects\OrderValueObject;
 
 class OrderFactory
 {
