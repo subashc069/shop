@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 
@@ -64,14 +65,14 @@ Route::prefix('carts')->as('carts:')->group(function () {
      * Store Coupons
      */
 
-    Route::post('{cart:uuid}/coupons', \App\Http\Controllers\Api\V1\Carts\Coupons\StoreController::class)
+    Route::post('{cart:uuid}/coupons', App\Http\Controllers\Api\V1\Carts\Coupons\StoreController::class)
         ->name('coupons:store');
 
     /**
      * Remove Coupons
      */
 
-    Route::delete('{cart:uuid}/coupons/{uuid}', \App\Http\Controllers\Api\V1\Carts\Coupons\DeleteController::class)
+    Route::delete('{cart:uuid}/coupons/{uuid}', App\Http\Controllers\Api\V1\Carts\Coupons\DeleteController::class)
         ->name('coupons:delete');
 
 });
@@ -86,3 +87,15 @@ Route::prefix('orders')->as('orders:')->group(function () {
      */
     Route::post('/',App\Http\Controllers\Api\V1\Orders\StoreController::class)->name('store');
 });
+
+/**
+ * Stripe Webhooks
+ */
+Route::middleware(['stripe-webhooks'])->group(function () {
+    Route::post(
+        'stripe/webhooks',
+        \App\Http\Controllers\Api\V1\Orders\StripeWebhookController::class
+    )->name('stripe:webhooks');
+
+});
+

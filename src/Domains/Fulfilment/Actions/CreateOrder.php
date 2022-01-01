@@ -22,6 +22,7 @@ class CreateOrder
             'number' => OrderNumberGenerator::generate(),
             'state' => OrderStatus::pending()->label,
             'coupon' => $cart->coupon,
+            'intent' => $object->intent,
             'total' => 'calculate me',
             'reduction' => $cart->reduction,
             'user_id' => is_null($object->email) ? $object->user : null,

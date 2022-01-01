@@ -15,6 +15,7 @@ it('can create an order for unauthenticated user', function (CartItem $cartItem,
             billing: $location->id,
             user: null,
             email: 'bcoolboy8@gmail.com',
+            intent: "test123",
         ),
     )->when(
         callable: function (OrderAggregate $aggregate) use ($cartItem, $location) {
@@ -24,6 +25,7 @@ it('can create an order for unauthenticated user', function (CartItem $cartItem,
                 billing: $location->id,
                 user: null,
                 email: 'bcoolboy8@gmail.com',
+                intent: "test123",
             );
            },
        )->assertEventRecorded(
@@ -33,6 +35,7 @@ it('can create an order for unauthenticated user', function (CartItem $cartItem,
                billing: $location->id,
                user: null,
                email: 'bcoolboy8@gmail.com',
+               intent: "test123",
            ),
        );
 })->with('3CartItems', 'location');
@@ -47,6 +50,7 @@ it('can create an order for authenticated user', function (CartItem $cartItem, L
                 billing: $location->id,
                 user: auth()->id(),
                 email: null,
+                intent: "test123",
             ),
         )->when(
             callable: function (OrderAggregate $aggregate) use ($cartItem, $location) {
@@ -56,6 +60,7 @@ it('can create an order for authenticated user', function (CartItem $cartItem, L
                     billing: $location->id,
                     user: auth()->id(),
                     email: null,
+                    intent: "test123",
                 );
             },
         )->assertEventRecorded(
@@ -65,6 +70,7 @@ it('can create an order for authenticated user', function (CartItem $cartItem, L
                 billing: $location->id,
                 user: auth()->id(),
                 email: null,
+                intent: "test123",
             ),
         );
 })->with('3CartItems', 'location');

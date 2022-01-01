@@ -19,6 +19,7 @@ it('can convert a cart to an order for an unauthenticated user', function (CartI
             'email' => 'test@pest.com',
             'shipping' => $location->id,
             'billing' => $location->id,
+            'intent' => "test123"
         ]
     )->assertStatus(Http::ACCEPTED);
 
@@ -38,6 +39,7 @@ it('can convert a cart to an order for an authenticated user', function (CartIte
             'cart' => $cartItem->cart->uuid,
             'shipping' => $location->id,
             'billing' => $location->id,
+            'intent' => "test123"
         ]
     )->assertStatus(Http::ACCEPTED);
 

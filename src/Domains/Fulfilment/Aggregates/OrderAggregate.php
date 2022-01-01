@@ -7,7 +7,14 @@ use Spatie\EventSourcing\AggregateRoots\AggregateRoot;
 
 class OrderAggregate extends AggregateRoot
 {
-    public function orderCreate(string $cart, int $shipping, int $billing, null|int $user, null|string $email): self
+    public function orderCreate(
+        string $cart,
+        int $shipping,
+        int $billing,
+        null|int $user,
+        null|string $email,
+        string $intent
+    ): self
     {
         $this->recordThat(
             domainEvent: new OrderWasCreated(
@@ -15,7 +22,8 @@ class OrderAggregate extends AggregateRoot
                 shipping: $shipping,
                 billing: $billing,
                 user: $user,
-                email: $email
+                email: $email,
+                intent: $intent,
             )
         );
         return $this;
